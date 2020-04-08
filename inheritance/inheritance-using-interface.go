@@ -3,32 +3,57 @@ package main
 import "fmt"
 
 type PipelineTaskInterface interface {
-    say()
+    printTaskName()
 }
 
 type PipelineTask struct {
 	name string
 }
 
-func (b *PipelineTask) say() {
-	fmt.Println(b.name)
-}
-
-type PipelineTryTask struct {
+type TryPipelineTask struct {
 	PipelineTask  //embedding
 	runAfter string
 }
 
-func check(b PipelineTaskInterface) {
-	b.say()
+type FinalPipelineTask struct {
+	PipelineTask  //embedding
 }
+
+func (b *PipelineTask) printTaskName() {
+	fmt.Println(b.name)
+}
+
+func (b *TryPipelineTask) printRunAfter() {
+	fmt.Println(b.runAfter)
+}
+
+func check(b PipelineTaskInterface) {
+	b.printTaskName()
+}
+
+//func checkRunAfter(b *TryPipelineTask) {
+//	b.printRunAfter()
+//}
 
 func main() {
 	PipelineTask := PipelineTask{name: "Task1"}
-	PipelineTryTask := &PipelineTryTask{
+
+	TryPipelineTask := &TryPipelineTask{
 		PipelineTask:  PipelineTask,
 		runAfter: "Task0",
 	}
-	PipelineTryTask.say()
-	check(PipelineTryTask)
+
+	FinalPipelineTask := &FinalPipelineTask{
+		PipelineTask:  PipelineTask,
+	}
+
+	TryPipelineTask.printTaskName()
+	check(TryPipelineTask)
+
+	TryPipelineTask.printRunAfter()
+//	checkRunAfter(TryPipelineTask)
+
+	FinalPipelineTask.printTaskName()
+	check(FinalPipelineTask)
+
 }
