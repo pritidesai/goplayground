@@ -26,5 +26,5 @@ func main() {
 		runAfter: "Task0",
 	}
 	PipelineTryTask.say()
-	check(PipelineTryTask)
+//	check(PipelineTryTask) # doesnt work without interface
 }
