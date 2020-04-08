@@ -36,24 +36,23 @@ func check(b PipelineTaskInterface) {
 //}
 
 func main() {
-	PipelineTask := PipelineTask{name: "Task1"}
+	pipelineTask := PipelineTask{name: "Task1"}
 
-	TryPipelineTask := &TryPipelineTask{
-		PipelineTask:  PipelineTask,
+	tryPipelineTask := &TryPipelineTask{
+		PipelineTask:  pipelineTask,
 		runAfter: "Task0",
 	}
 
-	FinalPipelineTask := &FinalPipelineTask{
-		PipelineTask:  PipelineTask,
+	finalPipelineTask := &FinalPipelineTask{
+		PipelineTask:  pipelineTask,
 	}
 
-	TryPipelineTask.printTaskName()
-	check(TryPipelineTask)
+	tryPipelineTask.printTaskName()
+	check(tryPipelineTask)
 
-	TryPipelineTask.printRunAfter()
+	tryPipelineTask.printRunAfter()
 //	checkRunAfter(TryPipelineTask)
 
-	FinalPipelineTask.printTaskName()
-	check(FinalPipelineTask)
-
+	finalPipelineTask.printTaskName()
+	check(finalPipelineTask)
 }
